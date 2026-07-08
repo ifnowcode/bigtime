@@ -1,4 +1,6 @@
 const showdebug = false;
+const autoRefresh = document.getElementById("autoRefresh");
+let intervalID = null;
 
 const slides = [
   "./imagesex/Gallery/Birds/pexels-photo-2629372.jpg",
@@ -52,8 +54,6 @@ function showClock() {
     document.getElementById("date").innerHTML = d.toDateString();
 }
 
-fetchSlide();
-setInterval(fetchSlide, 60000);
 function showSlide() {
   //console.log("Slide", slides[index]);
   document.body.style.backgroundImage = `url('${slides[index]}')`;
@@ -69,10 +69,36 @@ function showSlide() {
   }
 }
 
-function fetchSlide() {
+function getSlide() {
   document.body.style.backgroundImage = "url('https://picsum.photos/1920/1080?random')";
   document.body.style.backgroundSize = `cover`;
   document.body.style.backgroundRepeat = `no-repeat`;
   document.body.style.backgroundAttachment = `fixed`;
   document.body.style.backgroundPosition = `center`;
+  //console.log(document.body.style.backgroundImage);
+}
+
+async function fetchSlide() {
+  const res = await fetch(`https://picsum.photos/1920/1080?random`);
+  if (res.ok) {
+    document.body.style.backgroundImage = `url(${res.url})`;
+    document.body.style.backgroundSize = `cover`;
+    document.body.style.backgroundRepeat = `no-repeat`;
+    document.body.style.backgroundAttachment = `fixed`;
+    document.body.style.backgroundPosition = `center`;
+    //console.log(`url(${res.url})`);
+  }
+}
+
+autoRefresh.addEventListener("change", e => {
+  if (autoRefresh.checked) {
+    intervalID = setInterval(fetchSlide, 60000);
+  } else {
+    clearInterval(intervalID);
+  }
+});
+
+fetchSlide();
+if (autoRefresh.checked) {
+  intervalID = setInterval(fetchSlide, 60000);
 }
