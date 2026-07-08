@@ -1,0 +1,117 @@
+/* bigtime CSS */
+body, html {
+  height:100%
+}
+
+body {
+  background: #000;
+  display:flex;
+  margin:0;
+  flex-direction:column;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#debug {
+  position: absolute;
+  color: gold;
+  background: rgba(0,0,0,.9);
+  padding-right: 10px;
+}
+
+/*
+#debug::before {
+  content: "★ ";
+  color: gold;
+}
+*/
+
+#bigtime {
+  background: #111;
+  margin: auto;
+  border: 10px solid red;
+  opacity: 0.65;
+}
+
+#time {
+  font-size: 200px; /* 164 */
+  text-align: center; 
+  padding: 50px; 
+  color: lavender;
+}
+
+#date {
+  font-size: 76px;
+  text-align: center; 
+  padding: 50px;
+  color: gold;
+}
+
+@media (max-width: 1200px), (max-height: 575px) {
+  #time {
+    font-size: 132px;
+    padding: 50px;
+  }
+}
+@media (max-width: 1200px), (max-height: 575px) {
+  #date {
+    font-size: 64px;
+    padding:50px;
+    color: purple;
+  }
+}
+
+@media (max-width: 850px), (max-height: 465px) {
+  #time {
+    font-size: 92px;
+    padding:50px;
+  }
+  #date {
+    font-size: 46px;
+    padding:50px;
+    color: #00FF22;
+  }
+}
+
+@media (max-width: 650px), (max-height: 390px) {
+  #time {
+    font-size: 64px;
+    padding: 20px;
+  }
+  #date {
+    font-size: 24px;
+    padding: 20px;
+    color: #00FFFF;
+  }
+}
+
+@media (max-height: 200px), (max-height: 100px) {
+  #time {
+    font-size: 32px;
+    padding: 2px;
+  }
+  #date {
+    font-size: 18px;
+    padding: 2px;
+    color: yellow;
+  }
+}
+
+@media (max-height: 100px), (max-height: 80px) {
+  #time {
+    font-size: 18px;
+    padding: 2px;
+    display: inline;
+  }
+  #date {
+    font-size: 18px;
+    padding: 2px;
+    display: inline;
+    color: red;
+  }
+  #debug {
+    /* display: none; */
+  }
+}
