@@ -1,6 +1,8 @@
 const showdebug = false;
 const autoRefresh = document.getElementById("autoRefresh");
 let intervalID = null;
+let slideShowOn = true;
+let useInternalSlides = false;
 
 const slides = [
   "./imagesex/Gallery/Birds/pexels-photo-2629372.jpg",
@@ -92,13 +94,49 @@ async function fetchSlide() {
 
 autoRefresh.addEventListener("change", e => {
   if (autoRefresh.checked) {
-    intervalID = setInterval(fetchSlide, 60000);
+    intervalID = setInterval(slideShow, 60000);
   } else {
     clearInterval(intervalID);
   }
 });
 
-fetchSlide();
+document.addEventListener("keydown", (e) => {
+  //console.log("Event", e);
+  if (e.code === 'KeyS') {
+    // Pictures can make the clock hard to view so this will turn them off
+    slideShowOn = !slideShowOn;
+    if (slideShowOn) {
+      slideShow();
+    } else {
+      document.body.style.backgroundImage = "none";
+    }
+    console.log("[S] Slide Show", slideShowOn);
+  } else if (e.code === 'KeyI') {
+    // this can only be used privately by me so I can view my internal slides locally
+    // I made it a shift combo so it's not accidentally used
+    if (event.shiftKey) {
+      useInternalSlides = !useInternalSlides;
+      if (useInternalSlides) {
+        showSlide();
+      } else {
+        fetchSlide();
+      }
+      console.log("[Shift+I] Internal Slides", useInternalSlides);
+    }
+  }
+}, false);
+
+function slideShow() {
+  if (slideShowOn) {
+    if (useInternalSlides) {
+      showSlide();
+    } else {
+      fetchSlide();
+    }
+  }
+}
+
+slideShow();
 if (autoRefresh.checked) {
-  intervalID = setInterval(fetchSlide, 60000);
+  intervalID = setInterval(slideShow, 60000);
 }
